@@ -68,7 +68,7 @@ If the graph needs more colours than there are slots, the instance is unsolvable
 | `src/plots.py` | EX5 | coloured timetable grid and comparison bar chart |
 | `app/main.py` | EX5 | runs the whole demo |
 | `docs/flowchart.png` | EX6 | flowchart of the demo |
-| `docs/viva.md` | EX6 | ten likely viva questions with answers |
+
 
 ## Features covered (E1 to E7)
 
