@@ -92,7 +92,7 @@ If the graph needs more colours than there are slots, the instance is unsolvable
 | `app/main.py` | EX5 | runs the whole demo |
 | `app/tkinter_app.py` | EX7 | Tkinter graphical interface |
 | `docs/flowchart.png` | EX6 | flowchart of the demo |
-| `docs/viva.md` | EX6 | ten likely viva questions with answers |
+
 
 ## Features covered (E1 to E7)
 
