@@ -24,17 +24,41 @@ Every course has one exam. Each exam must get a time slot so that
 
 ## How to run
 
-Needs Python 3.8+ and matplotlib (`pip install -r requirements.txt`).
-Run every command from the repo root.
+Requires Python 3.8+ and a graphical desktop session.
+
+Run these commands from the repository root:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
+```
+
+On systems that use the `python` command for Python 3, virtual environment setup can also use:
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
+```
+
+Run the demo or graphical interface:
 
 ```bash
 python app/main.py                  # full demo: solve twice, grid, comparison chart
 python app/main.py --no-show        # same, only saves pictures to output/
 python app/main.py --seed 6         # another random class (options: --students --courses --slots --capacity)
-python tests/test_data.py           # basic tests (also: pytest tests)
-python tests/test_solvers.py
-python tests/test_validator.py
+python app/tkinter_app.py           # open the Tkinter graphical interface
 ```
+
+To run the GUI without activating the virtual environment:
+
+```bash
+.venv/bin/python app/tkinter_app.py
+```
+
+The Tkinter window lets you enter instance settings, solve using both algorithms,
+display the forward-checking timetable, and compare solver backtracks.
 
 Default demo (seed 1): backtracking needs 430 backtracks, forward checking 148, and both
 return the same valid timetable. Some seeds are much harder (seed 3 takes plain
@@ -63,10 +87,10 @@ If the graph needs more colours than there are slots, the instance is unsolvable
 | `src/data.py` | EX1 | `Instance`, `generate_instance()` with a seed, conflict graph |
 | `src/csp.py` | EX2 | `solve_backtracking()` |
 | `src/forward_checking.py` | EX3 | `solve_forward_checking()` |
-| `src/validator.py` | EX4 | `validate()` checks both constraints |
-| `tests/` | EX4 | tests for the generator, both solvers and the validator |
+| `validator.py` | EX4 | `validate()` checks both constraints |
 | `src/plots.py` | EX5 | coloured timetable grid and comparison bar chart |
 | `app/main.py` | EX5 | runs the whole demo |
+| `app/tkinter_app.py` | EX7 | Tkinter graphical interface |
 | `docs/flowchart.png` | EX6 | flowchart of the demo |
 | `docs/viva.md` | EX6 | ten likely viva questions with answers |
 
