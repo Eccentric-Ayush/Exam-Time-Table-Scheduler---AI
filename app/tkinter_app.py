@@ -11,7 +11,7 @@ from src.csp import solve_backtracking
 from src.data import generate_instance
 from src.forward_checking import solve_forward_checking
 from src.plots import plot_comparison, plot_timetable
-from validator import validate
+from src.validator import validate
 
 
 class SchedulerApp(tk.Tk):
@@ -96,14 +96,28 @@ class SchedulerApp(tk.Tk):
         if not self.fc_plan:
             messagebox.showwarning("No timetable", "Generate and solve an instance first.")
             return
-        plot_timetable(self.instance, self.fc_plan,
-                       title="Exam timetable (forward checking)", show=True)
+        try:
+            out_dir = os.path.join(ROOT, "output")
+            os.makedirs(out_dir, exist_ok=True)
+            plot_timetable(self.instance, self.fc_plan,
+                           title="Exam timetable (forward checking)",
+                           save_path=os.path.join(out_dir, "timetable_grid.png"),
+                           show=True)
+        except Exception as exc:
+            messagebox.showerror("Plot error", str(exc))
 
     def show_comparison(self):
         if not self.bt_stats:
             messagebox.showwarning("No results", "Generate and solve an instance first.")
             return
-        plot_comparison(self.bt_stats, self.fc_stats, show=True)
+        try:
+            out_dir = os.path.join(ROOT, "output")
+            os.makedirs(out_dir, exist_ok=True)
+            plot_comparison(self.bt_stats, self.fc_stats,
+                            save_path=os.path.join(out_dir, "comparison_chart.png"),
+                            show=True)
+        except Exception as exc:
+            messagebox.showerror("Plot error", str(exc))
 
     def clear(self):
         self.result.delete("1.0", "end")

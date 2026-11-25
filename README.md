@@ -87,7 +87,7 @@ If the graph needs more colours than there are slots, the instance is unsolvable
 | `src/data.py` | EX1 | `Instance`, `generate_instance()` with a seed, conflict graph |
 | `src/csp.py` | EX2 | `solve_backtracking()` |
 | `src/forward_checking.py` | EX3 | `solve_forward_checking()` |
-| `validator.py` | EX4 | `validate()` checks both constraints |
+| `src/validator.py` | EX4 | `validate()` checks both constraints |
 | `src/plots.py` | EX5 | coloured timetable grid and comparison bar chart |
 | `app/main.py` | EX5 | runs the whole demo |
 | `app/tkinter_app.py` | EX7 | Tkinter graphical interface |

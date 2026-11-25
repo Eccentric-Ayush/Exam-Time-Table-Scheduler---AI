@@ -4,11 +4,13 @@ import matplotlib.pyplot as plt
 
 def _finish(fig, save_path, show):
     fig.tight_layout()
-    if save_path:
-        fig.savefig(save_path, dpi=130)
-    if show:
-        plt.show()
-    plt.close(fig)
+    try:
+        if save_path:
+            fig.savefig(save_path, dpi=130)
+        if show:
+            plt.show()
+    finally:
+        plt.close(fig)
 
 
 def plot_timetable(instance, assignment, title="Exam timetable", save_path=None, show=True):
@@ -51,9 +53,14 @@ def plot_timetable(instance, assignment, title="Exam timetable", save_path=None,
 def plot_comparison(stats_bt, stats_fc, title="Backtracking vs forward checking",
                     save_path=None, show=True):
     """E7: bar chart of backtracks on the same instance."""
+    if not isinstance(stats_bt, dict) or not isinstance(stats_fc, dict):
+        raise ValueError("Both solver result dictionaries are required.")
+    if "backtracks" not in stats_bt or "backtracks" not in stats_fc:
+        raise ValueError("Solver statistics must contain 'backtracks'.")
+
     labels = ["Backtracking", "Forward checking"]
     values = [stats_bt["backtracks"], stats_fc["backtracks"]]
-    nodes = [stats_bt["nodes"], stats_fc["nodes"]]
+    nodes = [stats_bt.get("nodes", 0), stats_fc.get("nodes", 0)]
 
     fig, ax = plt.subplots(figsize=(6, 4.2))
     bars = ax.bar(labels, values, color=["#c0504d", "#4f81bd"])
@@ -61,6 +68,8 @@ def plot_comparison(stats_bt, stats_fc, title="Backtracking vs forward checking"
         ax.text(bar.get_x() + bar.get_width() / 2, bar.get_height(),
                 f"{v} backtracks\n({n} nodes)", ha="center", va="bottom", fontsize=9)
     ax.set_ylabel("Backtracks")
-    ax.set_ylim(0, max(values + [1]) * 1.25)
+    ax.set_ylim(0, max(values + [1]) * 1.18)
+    ax.grid(axis="y", linestyle="--", alpha=0.35)
+    ax.set_axisbelow(True)
     ax.set_title(title)
     _finish(fig, save_path, show)
